@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mozilla+Headline:wght@200..700&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -52,5 +54,35 @@ body{
 }
 
 .navbar .links nav ul li{
-    
+    font-size: 1em;
+    font-weight: 600;
+    font-family: "Quicksand", sans-serif;
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    padding: 5px;
+}
+
+.navbar .links nav ul li a{
+    text-decoration: none;
+}
+
+.navbar .links nav ul li::after{
+    content: '';
+    position: absolute;
+    background-color: rgb(1, 1, 151);
+    padding: 1px;
+    width: 0;
+    /* display: none; */
+    visibility: hidden;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar .links nav ul li:hover::after{
+    /* display: inline-block; */
+    visibility: visible;
+    width: 100%;
 }
