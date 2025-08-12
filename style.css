@@ -86,3 +86,28 @@ body{
     visibility: visible;
     width: 100%;
 }
+.navbar .links .ctas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar .links .ctas button{
+    padding: 7px 20px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(1, 1, 151);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    font-family: "quicksand", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar .links .ctas button:hover{
+    transform: scale(1.03);
+    background-color: rgb(8, 8, 160);
+}
