@@ -133,7 +133,7 @@ body{
     outline: none;
     border: none;
     border-radius: 5px;
-    background-color: rgb(1, 1, 151);
+    background-color: #2556e7;
     color: #fff;
     font-weight: 600;
     font-size: 1em;
@@ -144,7 +144,7 @@ body{
 
 .navbar .links .ctas button:hover{
     transform: scale(1.03);
-    background-color: rgb(8, 8, 160);
+    background-color: #3565f5;
 }
 
 .container{
