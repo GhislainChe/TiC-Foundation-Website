@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TiC Foundation Success</title>
+</head>
+<body>
+        <div class="overlay" id="overlay"></div>
+    <div class="navi">
+        <div class="navbar">
+            <div class="logo">
+                <img src="logo/TIC Logo_Horizontal_Blue.png" alt="logo">
+            </div>
+            <div class="links">
+                <nav id="nav">
+                    <ul>
+                        <li><a href="program.html" class="active">Programs</a></li>
+                        <li><a href="#">Success</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Discover</a></li>
+                        <li><a href="#">Events</a></li>
+                    </ul>
+                </nav>
+                <div class="icons">
+                    <i class="fa-solid fa-bars" id="menu"></i>
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <div class="ctas">
+                    <button class="login">Login</button>
+                    <button class="signup">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let menu = document.getElementById('menu');
+        let nav = document.getElementById('nav');
+        let overlay = document.getElementById('overlay');
+        menu.addEventListener('click', function() {
+            if (nav.style.display === "block") {
+                menu.classList.remove('fa-xmark');
+                menu.classList.add('fa-bars');
+                nav.style.display = "none";
+                overlay.style.display = "none";
+                menu.style.zIndex = "0";
+                menu.style.color = "#011349";
+                document.body.style.overflow = "auto";
+            } else {
+                nav.style.display = "block";
+                menu.classList.remove('fa-bars');
+                menu.classList.add('fa-xmark');
+                overlay.style.display = "block";
+                document.body.style.overflow = "hidden";
+                menu.style.zIndex = "1000";
+                menu.style.color = "#fff"
+            }
+        });
+        
+    </script>
+</body>
+</html>
