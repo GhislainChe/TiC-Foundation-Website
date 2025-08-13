@@ -200,6 +200,90 @@ body{
     font-family: "Montserat", sans-serif;
 }
 
+.contents .boxes{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.contents .boxes .boxProg{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 10px #1f1f1f11;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    position: relative;
+}
+
+.contents .boxes .boxProg:hover{
+    transform: scale(1.02);
+    box-shadow: 0 2px 15px #0000001a;
+}
+
+.contents .boxes .boxProg .image{
+    width: 100%;
+    height: 130px;
+    background: url(IMG4.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+}
+
+.contents .boxes .boxProg .inform{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contents .boxes .boxProg .info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.contents .boxes .boxProg .info h2{
+    font-size: 1.3em;
+    color: rgba(0, 0, 17, 0.925);
+    font-family: "Roboto", sans-serif;
+}
+
+.contents .boxes .boxProg .info p{
+    font-size: 0.8em;
+    /* letter-spacing: .7px; */
+    font-weight: 400;
+    color: #000000a4;
+    font-family: "lato", sans-serif;
+}
+
+.contents .boxes .boxProg .inform button{
+    padding: 6px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    background-color: rgb(119, 119, 255);
+    font-size: .9em;
+    color: #fff;
+    font-weight: 600;
+    font-family: "Quicksand", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+}
+
+.contents .boxes .boxProg .inform button:hover{
+    transform: scale(1.03);
+    background-color: rgb(83, 83, 253);
+}
+
 @media (max-width: 1000px) {
     .navbar .links nav{
         display: none;
