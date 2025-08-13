@@ -40,7 +40,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 20px;
+    padding: 15px 20px;
     z-index: 900;
 }
 
@@ -50,7 +50,7 @@ body{
 }
 
 .navbar .logo img{
-    width: clamp(70px, 70%, 100px);
+    width: clamp(70px, 60%, 100px);
     height: auto;
 }
 
@@ -165,6 +165,40 @@ body{
 .navbar .links .ctas button:hover{
     transform: scale(1.03);
     background-color: rgb(8, 8, 160);
+}
+
+.headerImg{
+    width: 100%;
+    /* height: 250px; */
+    background: linear-gradient(to right, rgb(0, 0, 0, 0.7), rgb(0, 0, 0, 0.7)), url(man-jump-through-gaps-hills.jpg);
+    background-size: cover;
+    background-position: 100% 70%;
+}
+
+.headerImg .successContnt{
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 30px 30px;
+}
+
+.headerImg .successContnt h1{
+    color: #fff;
+    font-size: 2.8em;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    /* text-align: center; */
+    /* margin-top: 30px; */
+}
+
+.headerImg .successContnt p{
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 500;
+    font-family: "quicksand", sans-serif;
+    margin-top: 20px;
+    line-height: 1.4;
 }
 
 @media (max-width: 1000px) {
