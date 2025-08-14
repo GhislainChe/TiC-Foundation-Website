@@ -5,126 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TiC Foundation - Gallery</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="galery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .gallery-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .gallery-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .gallery-header h1 {
-            color: #011349;
-            margin-bottom: 1rem;
-        }
-        
-        .gallery-filters {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .filter-btn {
-            padding: 0.5rem 1.5rem;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: #011349;
-            color: white;
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            aspect-ratio: 1;
-            transition: transform 0.3s ease;
-        }
-        
-        .gallery-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-        
-        .gallery-item-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-            color: white;
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .gallery-item:hover .gallery-item-caption {
-            transform: translateY(0);
-        }
-        
-        .load-more {
-            display: block;
-            width: 200px;
-            margin: 2rem auto;
-            padding: 0.8rem 1.5rem;
-            background: #011349;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s ease;
-        }
-        
-        .load-more:hover {
-            background: #001a3a;
-        }
-        
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .gallery-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-    </style>
+    
 </head>
 <body>
     <div class="overlay" id="overlay"></div>
@@ -168,11 +52,10 @@
             <button class="filter-btn" data-filter="events">Events</button>
             <button class="filter-btn" data-filter="programs">Programs</button>
             <button class="filter-btn" data-filter="workshops">Workshops</button>
-            <button class="filter-btn" data-filter="community">Community</button>
+            <button class="filter-btn" data-filter="community">Interships</button>
         </div>
         
         <div class="gallery-grid" id="galleryGrid">
-            <!-- Gallery items will be dynamically loaded here -->
         </div>
         
         <button class="load-more" id="loadMore">Load More</button>
@@ -231,19 +114,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
-        // Gallery data (in a real app, this would come from a server)
         const galleryData = [
-            { id: 1, src: 'gallery/event1.jpg', category: 'events', title: 'Tech Summit 2025' },
-            { id: 2, src: 'gallery/program1.jpg', category: 'programs', title: 'Coding Workshop' },
-            { id: 3, src: 'gallery/workshop1.jpg', category: 'workshops', title: 'UI/UX Design' },
-            { id: 4, src: 'gallery/community1.jpg', category: 'community', title: 'Community Meetup' },
-            { id: 5, src: 'gallery/event2.jpg', category: 'events', title: 'Hackathon 2025' },
-            { id: 6, src: 'gallery/program2.jpg', category: 'programs', title: 'Mentorship Session' },
-            { id: 7, src: 'gallery/workshop2.jpg', category: 'workshops', title: 'Mobile App Development' },
-            { id: 8, src: 'gallery/community2.jpg', category: 'community', title: 'Volunteer Day' },
+            { id: 1, src: 'events/summit2.jpg', category: 'events', title: 'TiC Summit 2025' },
+            { id: 2, src: 'events/workshop.jpg', category: 'programs', title: 'Coding Workshop' },
+            { id: 3, src: 'events/hackathon.jpg', category: 'workshops', title: 'UI/UX Design' },
+            { id: 4, src: 'events/events.jpg', category: 'community', title: 'Community Meetup' },
+            { id: 5, src: 'events/img2.jpg', category: 'events', title: 'Hackathon 2025' },
+            { id: 6, src: 'events/mentor.jpg', category: 'programs', title: 'Mentorship Session' },
+            { id: 7, src: 'events/night.jpg', category: 'workshops', title: 'Mobile App Development' },
+            { id: 8, src: 'events/internship.jpg', category: 'community', title: 'Interships' },
         ];
 
-        // Initialize lightbox
         lightbox.option({
             'resizeDuration': 200,
             'wrapAround': true,
@@ -251,7 +132,6 @@
             'positionFromTop': 100
         });
 
-        // Render gallery items
         function renderGallery(items) {
             const galleryGrid = document.getElementById('galleryGrid');
             galleryGrid.innerHTML = '';
@@ -274,7 +154,6 @@
             });
         }
 
-        // Filter gallery items
         function filterGallery(category) {
             const items = category === 'all' 
                 ? galleryData 
@@ -282,32 +161,27 @@
             renderGallery(items);
         }
 
-        // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
-            // Initial render
+           
             renderGallery(galleryData);
             
-            // Filter buttons
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Update active button
+                   
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                     
-                    // Filter gallery
+                   
                     const category = button.getAttribute('data-filter');
                     filterGallery(category);
                 });
             });
             
-            // Load more button
             document.getElementById('loadMore').addEventListener('click', () => {
-                // In a real app, this would load more items from the server
                 alert('Loading more images...');
             });
             
-            // Mobile menu toggle (from main.js)
             const menu = document.getElementById('menu');
             const nav = document.getElementById('nav');
             const overlay = document.getElementById('overlay');
