@@ -107,14 +107,15 @@
             </div>
         </div>
         <div class="buttom">
-            <p>© 2025 TiC Foundation. All rights reserved.</p>
+            <p> 2025 TiC Foundation. All rights reserved.</p>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
-        const galleryData = [
+        // Default hardcoded images
+        const defaultImages = [
             { id: 1, src: 'events/summit2.jpg', category: 'events', title: 'TiC Summit 2025' },
             { id: 2, src: 'events/workshop.jpg', category: 'programs', title: 'Coding Workshop' },
             { id: 3, src: 'events/hackathon.jpg', category: 'workshops', title: 'UI/UX Design' },
@@ -124,6 +125,26 @@
             { id: 7, src: 'events/night.jpg', category: 'workshops', title: 'Mobile App Development' },
             { id: 8, src: 'events/internship.jpg', category: 'community', title: 'Interships' },
         ];
+
+        // Load images from localStorage or use default if empty
+        let galleryData = JSON.parse(localStorage.getItem('galleryImages'));
+        if (!galleryData || galleryData.length === 0) {
+            galleryData = [...defaultImages];
+            localStorage.setItem('galleryImages', JSON.stringify(galleryData));
+        } else {
+            // Check if default images are missing and add them if needed
+            const defaultImageIds = defaultImages.map(img => img.id);
+            const existingDefaultImages = galleryData.filter(img => defaultImageIds.includes(img.id));
+            
+            if (existingDefaultImages.length < defaultImages.length) {
+                defaultImages.forEach(defaultImg => {
+                    if (!galleryData.some(img => img.id === defaultImg.id)) {
+                        galleryData.push(defaultImg);
+                    }
+                });
+                localStorage.setItem('galleryImages', JSON.stringify(galleryData));
+            }
+        }
 
         lightbox.option({
             'resizeDuration': 200,
@@ -136,6 +157,11 @@
             const galleryGrid = document.getElementById('galleryGrid');
             galleryGrid.innerHTML = '';
             
+            if (items.length === 0) {
+                galleryGrid.innerHTML = '<p class="no-images">No images found in this category.</p>';
+                return;
+            }
+            
             items.forEach(item => {
                 const galleryItem = document.createElement('div');
                 galleryItem.className = 'gallery-item';
@@ -146,6 +172,7 @@
                         <img src="${item.src}" alt="${item.title}">
                         <div class="gallery-item-caption">
                             <h4>${item.title}</h4>
+                            <span class="category-tag">${item.category}</span>
                         </div>
                     </a>
                 `;
@@ -162,17 +189,14 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-           
             renderGallery(galleryData);
             
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                   
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                     
-                   
                     const category = button.getAttribute('data-filter');
                     filterGallery(category);
                 });
@@ -201,9 +225,9 @@
                         menu.classList.remove('fa-bars');
                         menu.classList.add('fa-xmark');
                         overlay.style.display = 'block';
-                        document.body.style.overflow = 'hidden';
                         menu.style.zIndex = '1000';
-                        menu.style.color = '#fff';
+                        menu.style.color = '#011349';
+                        document.body.style.overflow = 'hidden';
                     }
                 });
             }

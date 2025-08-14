@@ -284,17 +284,44 @@
                 </form>
             </div>
             
-            <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
+            <div id="galleryGrid" class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
  
             </div>
             
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
+                    // Default hardcoded images
+                    const defaultImages = [
+                        { id: 1, src: 'events/mentor.jpg', title: 'Tech Summit 2025', category: 'events' },
+                        { id: 2, src: 'events/hackathon.jpg', title: 'Coding Workshop', category: 'programs' },
+                        { id: 3, src: 'events/summit.jpg', title: 'UI/UX Design', category: 'workshops' }
+                    ];
+                    
+                    // Load images from localStorage or use default if empty
+                    let galleryImages = JSON.parse(localStorage.getItem('galleryImages'));
+                    if (!galleryImages || galleryImages.length === 0) {
+                        galleryImages = [...defaultImages];
+                        localStorage.setItem('galleryImages', JSON.stringify(galleryImages));
+                    } else {
+                        // Check if default images are missing and add them if needed
+                        const defaultImageIds = defaultImages.map(img => img.id);
+                        const existingDefaultImages = galleryImages.filter(img => defaultImageIds.includes(img.id));
+                        
+                        if (existingDefaultImages.length < defaultImages.length) {
+                            defaultImages.forEach(defaultImg => {
+                                if (!galleryImages.some(img => img.id === defaultImg.id)) {
+                                    galleryImages.push(defaultImg);
+                                }
+                            });
+                            localStorage.setItem('galleryImages', JSON.stringify(galleryImages));
+                        }
+                    }
+                    
                     const addImageBtn = document.getElementById('addImageBtn');
                     const uploadFormContainer = document.getElementById('uploadFormContainer');
                     const cancelUploadBtn = document.getElementById('cancelUpload');
                     const imageUploadForm = document.getElementById('imageUploadForm');
-                    const galleryGrid = document.querySelector('.gallery-grid');
+                    const galleryGrid = document.getElementById('galleryGrid');
                     
                     addImageBtn.addEventListener('click', () => {
                         uploadFormContainer.style.display = uploadFormContainer.style.display === 'none' ? 'block' : 'none';
@@ -318,93 +345,72 @@
                             return;
                         }
                         
-                        simulateImageUpload(file, title, category);
-                        
-                        imageUploadForm.reset();
-                        uploadFormContainer.style.display = 'none';
-                        
-                        alert('Image uploaded successfully!');
+                        simulateImageUpload(file, title, category).then(imageData => {
+                            addImageToGallery(imageData);
+                            imageUploadForm.reset();
+                            uploadFormContainer.style.display = 'none';
+                            alert('Image uploaded successfully!');
+                        });
                     });
                     
                     function simulateImageUpload(file, title, category) {
-                        const imageUrl = URL.createObjectURL(file);
-                        
-                        const newId = Date.now();
-                        
-                        addImageToGallery({
-                            id: newId,
-                            src: imageUrl,
-                            title: title,
-                            category: category,
-                            date: new Date().toISOString().split('T')[0]
+                        return new Promise((resolve) => {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const imageData = {
+                                    id: Date.now(), // Use timestamp as ID to avoid conflicts with default images
+                                    src: e.target.result,
+                                    title: title,
+                                    category: category.toLowerCase()
+                                };
+                                
+                                galleryImages.push(imageData);
+                                localStorage.setItem('galleryImages', JSON.stringify(galleryImages));
+                                resolve(imageData);
+                            };
+                            reader.readAsDataURL(file);
                         });
-                        
                     }
-                    
+
                     function addImageToGallery(image) {
                         const galleryItem = document.createElement('div');
                         galleryItem.className = 'gallery-item';
+                        galleryItem.setAttribute('data-id', image.id);
                         galleryItem.innerHTML = `
-                            <div style="position: relative; padding-bottom: 100%; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
-                                <img src="${image.src}" alt="${image.title}" style="position: absolute; width: 100%; height: 100%; object-fit: cover;">
-                                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; padding: 0.5rem;">
-                                    <div style="font-weight: 500; margin-bottom: 0.25rem;">${image.title}</div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
-                                        <span style="text-transform: capitalize;">${image.category}</span>
-                                        <span>${image.date}</span>
-                                    </div>
-                                </div>
-                                <div style="position: absolute; top: 0.5rem; right: 0.5rem; display: flex; gap: 0.5rem;">
-                                    <button class="btn btn-sm btn-outline-light edit-image" data-id="${image.id}" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-light delete-image" data-id="${image.id}" title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                            <img src="${image.src}" alt="${image.title}">
+                            <div class="gallery-item-info">
+                                <h4>${image.title}</h4>
+                                <span class="category ${image.category}">${image.category}</span>
                             </div>
+                            <button class="delete-btn" data-id="${image.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         `;
                         
-                        galleryGrid.prepend(galleryItem);
+                        galleryGrid.appendChild(galleryItem);
                         
-                        galleryItem.querySelector('.delete-image').addEventListener('click', function() {
-                            if (confirm('Are you sure you want to delete this image?')) {
-                                galleryItem.remove();
-                                alert('Image deleted successfully!');
-                            }
-                        });
-                        
-                        galleryItem.querySelector('.edit-image').addEventListener('click', function() {
-                            alert('Edit functionality would open a form to edit image details.');
+                        const deleteBtn = galleryItem.querySelector('.delete-btn');
+                        deleteBtn.addEventListener('click', function() {
+                            const imageId = parseInt(this.getAttribute('data-id'));
+                            deleteImage(imageId);
+                            galleryItem.remove();
                         });
                     }
                     
+                    function deleteImage(imageId) {
+                        const index = galleryImages.findIndex(img => img.id === imageId);
+                        if (index !== -1) {
+                            galleryImages.splice(index, 1);
+                            localStorage.setItem('galleryImages', JSON.stringify(galleryImages));
+                        }
+                    }
+
                     function loadGalleryItems() {
-                        const sampleImages = [
-                            {
-                                id: 1,
-                                src: 'events/mentor.jpg',
-                                title: 'Tech Summit 2025',
-                                category: 'events',
-                                date: '2025-08-10'
-                            },
-                            {
-                                id: 2,
-                                src: 'events/hackathon.jpg',
-                                title: 'Coding Workshop',
-                                category: 'programs',
-                                date: '2025-08-05'
-                            },
-                            {
-                                id: 3,
-                                src: 'events/summit.jpg',
-                                title: 'UI/UX Design',
-                                category: 'workshops',
-                                date: '2025-07-28'
-                            }
-                        ];
+                        galleryGrid.innerHTML = '';
                         
-                        sampleImages.forEach(image => addImageToGallery(image));
+                        galleryImages.forEach(image => {
+                            addImageToGallery(image);
+                        });
                     }
                     
                     loadGalleryItems();
