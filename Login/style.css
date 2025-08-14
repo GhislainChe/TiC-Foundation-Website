@@ -27,6 +27,7 @@ form label {
   font-weight: bold;
 }
 
+
 .forgot_password {
   display: flex;
   justify-content: flex-end;
@@ -67,6 +68,14 @@ form label {
   padding: 10px;
   cursor: pointer;
 }
+
+
+.btn i{
+    max-width: 20px;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
 .create_account {
   display: flex;
   justify-content: center;
