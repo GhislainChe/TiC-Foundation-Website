@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://kit.fontawesome.com/95ebfc49eb.js" crossorigin="anonymous"></script>
+    <title>TiC Foundation - Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <div class="forms"> 
+            <div class="login-image">
+                <img src="../logo/TIC Logo_Horizontal_White.png" alt="TiC Foundation Logo">
+            </div>
+            <div class="login-form">
+                <h1>Welcome Back</h1>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn-login">Login</button>
+                    <div class="options">
+                        <div class="opt">
+                            <i class="fa-brands fa-google"></i>
+                            <span>Google</span>
+                        </div>
+                        <div class="opt">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub</span>
+                        </div>
+                    </div>
+                    <p class="signup-link">
+                        Don't have an account? <a href="../signup.html">Sign up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+   
+            const isAdmin = email === 'contact@ticsummit.org' && password === '#TiC2020@';
+            
+            
+            if (isAdmin) {
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
+                sessionStorage.setItem('userEmail', email);
+                sessionStorage.setItem('userRole', 'admin');
+                
+                window.location.href = '../admin.html';
+            } else {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userEmail', email);
+                sessionStorage.setItem('userRole', 'user');
+                
+                window.location.href = '../index.html';
+                
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const isAdminLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
+            
+            if (isAdminLoggedIn === 'true') {
+                window.location.href = '../admin.html';
+            } else if (isLoggedIn === 'true') {
+                window.location.href = '../index.html';
+            }
+        });
+    </script>
+</body>
+</html>
