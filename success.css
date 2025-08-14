@@ -290,6 +290,13 @@ body{
     line-height: 1.5;
     text-align: justify;
 }
+.summary ul{
+    padding: 10px;
+    font-size: .95em;
+    font-family: "lato", sans-serif;
+    line-height: 1.5;
+    text-align: justify;
+}
 
 .footer{
     display: flex;
