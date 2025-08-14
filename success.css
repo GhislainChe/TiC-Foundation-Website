@@ -203,6 +203,8 @@ body{
 
 .container{
     width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .boxContent{
@@ -213,12 +215,12 @@ body{
 }
 
 .boxContent h1{
-    font-size: 2em;
+    font-size: 1.7em;
     font-weight: 600;
-    font-family: "Winky Rough", sans-serif;
+    font-family: "quicksand", sans-serif;
     /* text-align: center; */
     /* margin-top: 20px; */
-    color: #011349;
+    color: blue;
 }
 
 .boxContent p{
@@ -270,7 +272,24 @@ body{
     text-align: justify;
 }
 
+.summary{
+    width: 100%;
+    padding: 20px;
+}
 
+.summary h1{
+    font-size: 1.7em;
+    color: blue;
+    font-family: "quicksand", sans-serif;
+}
+
+.summary p{
+    padding: 10px;
+    font-size: .95em;
+    font-family: "lato", sans-serif;
+    line-height: 1.5;
+    text-align: justify;
+}
 
 @media (max-width: 1000px) {
     .navbar .links nav{
